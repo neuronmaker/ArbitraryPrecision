@@ -1,2 +1,23 @@
-Copyright (C) Dalton Herrewynen 2023
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Copyright (C) 2023 Dalton Herrewynen
 All rights reserved.
+
+If you find this repository and you want to use it, contact me. I have not
+yet decided on which opensource license I will use. Until then, I am
+retaining all usage rights to this repository and all code therein.
+
+At the moment, this repository is private and should not be displayed. It is
+my intention to display and opensource this repository once I have the
+library mostly complete.
+
+Questions? Email neuronmaker@gmail.com
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQTdEHZzdRj88+sPHs2DGTsp04R9UwUCY+FOWgAKCRCDGTsp04R9
+U7FdAQCqIfpnWCbgA/Y8GeHIjUzn6fbDGQa4jah36ZnY9I+3gAD/UVvx0QN1RvTV
+bjN3AtNNC5/qpjn5DKDleI+f1DL8Qw4=
+=BnZe
+-----END PGP SIGNATURE-----
