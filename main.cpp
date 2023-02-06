@@ -5,6 +5,7 @@
 //
 
 #include <iostream>
+#include "ArbitraryPrecisionFloat.h"
 
 using namespace std;
 
