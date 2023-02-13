@@ -9,7 +9,7 @@
 //Mantissa may only be a few bits but can represent a large or small number based on the exponent
 //e.g. 12345.654321 = 1.2345654321 * 10^4 and 1234.56789 = 1.23456789 * 10^3
 //Computers do this with binary numbers and I will make this work with a large string of bits
-//I once thought to do this using a series of integer types but I want to show how it's done using only binary data
+//I once thought to do this using a series of integer types, but I want to show how it's done using only binary data (chars).
 
 #include "ArbitraryPrecisionFloat.h"
 
@@ -87,4 +87,16 @@ APfloat APfloat::operator>(APfloat f2) {
 
 APfloat APfloat::operator<(APfloat f2) {
     return APfloat();
+}
+
+double APfloat::toDouble() {
+    return 0;
+}
+
+APfloat::APfloat() {
+
+}
+
+APfloat::APfloat(unsigned int precision) {
+
 }
