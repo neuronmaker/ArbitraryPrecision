@@ -25,8 +25,18 @@ You only need to include the header and source file in your project, a sample
 is provided in the build.sh file which will compile the sample application.
 Download the header and class source file or clone the repo.
 
+Included Functions and Classes
+------------------------------
+
+Refer to `Reference.md` file
+1. Basic arithmetic - Most arithmetic can be done like you would on a normal float, double, or int
+2. Logic and equality - Allows for comparisons between values like normal
+3. Creation and initialization
+4. Setting precision - tradeoff between precision and size/complexity
+5. Assignment operator that will copy the value and precision to the new variable
+
 Why?
-------
+----
 
 I tried to build a library like this a long time ago when I had only been
 programming for a very short time. I did not understand very much about C++
