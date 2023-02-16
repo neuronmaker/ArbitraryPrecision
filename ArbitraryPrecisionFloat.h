@@ -3,52 +3,69 @@
 // Project: Arbitrary Precision
 // Created by Dalton Herrewynen on Feb 6 2023.
 //
+#ifndef BITS_IN_BYTE
+//if we do not have the number of bits in a byte defined
+#define BITS_IN_BYTE 8
+//makes it easier to set to systems that assign other than 8bits per byte
+#endif
 
 #ifndef ARBITRARYPRECISION_ARBITRARYPRECISIONFLOAT_H
 #define ARBITRARYPRECISION_ARBITRARYPRECISIONFLOAT_H
 
 //making the default precision exactly double that of the usual double data type
-#define DEFAULT_PRECISION 16
+#define DEFAULT_FLOAT_PRECISION 128 // Note that this is in bits
 
 class APfloat {
+    typedef unsigned int precisionType;//for easy changing down the road
 public:
 
     APfloat();//constructors
-    APfloat(unsigned int precision);
+    APfloat(precisionType givenPrecision);
+    APfloat(precisionType givenPrecision, precisionType givenExponentSize);
 
-    APfloat operator+ (APfloat f2);//basic operators for arithmetic
-    APfloat operator- (APfloat f2);
-    APfloat operator* (APfloat f2);
-    APfloat operator/ (APfloat f2);
-    APfloat operator% (APfloat f2);
+    ~APfloat();//destructor
 
-    APfloat operator++ ();//handy operators like incrementing
-    APfloat operator-- ();
+    //to do
+    //create destructor
+    //Create enum for NaN, Infinity, etc.
+    //catch divide by 0
 
-    APfloat operator= (APfloat f2);//assignment
-    APfloat operator+= (APfloat f2);
-    APfloat operator-= (APfloat f2);
-    APfloat operator*= (APfloat f2);
-    APfloat operator/= (APfloat f2);
-    APfloat operator%= (APfloat f2);
+    APfloat operator+ (APfloat&);//basic operators for arithmetic
+    APfloat operator- (APfloat&);
+    APfloat operator* (APfloat&);
+    APfloat operator/ (APfloat&);
 
-    APfloat operator== (APfloat f2);//equality and logic
-    APfloat operator!= (APfloat f2);
-    APfloat operator<= (APfloat f2);
-    APfloat operator>= (APfloat f2);
-    APfloat operator> (APfloat f2);
-    APfloat operator< (APfloat f2);
+    APfloat operator= (APfloat&);//assignment
+    APfloat operator+= (APfloat&);
+    APfloat operator-= (APfloat&);
+    APfloat operator*= (APfloat&);
+    APfloat operator/= (APfloat&);
 
-    double toDouble();//conversions to other data types (sometimes lossy)
+    //consider inlining most of these
+    bool operator== (APfloat&);//equality and logic
+    bool operator!= (APfloat&);//this one may be redundant as teh compiler may or may not generate this one for me
+    bool operator<= (APfloat&);
+    bool operator>= (APfloat&);
+    bool operator> (APfloat&);
+    bool operator< (APfloat&);
+
+    //conversions to other data types (sometimes lossy)
 
 private:
-    unsigned int precision;//Upon creation these two will be set
-    unsigned int exponentSize;//These two are the number of bits that the machine should use for our number
+    //Note that these are stored as bytes not bits
+    precisionType precision;//total precision
+    precisionType exponentSize;//size of exponent
 
-    bool infinity;//special values go here
+    bool infinity, NaN;//special values go here
+    bool positiveSign;//true for positive, false for negative
     unsigned char* fraction;//these pointers are where I store the dynamically allocated bytes to make this magic work
     unsigned char* exponent;//I suspect that using integers might be faster, but I want to show how to do this using raw bytes
 
 };
 
 #endif //ARBITRARYPRECISION_ARBITRARYPRECISIONFLOAT_H
+
+//to make things easier for users, this function divides bits by 8 to get number of bytes for this library
+//if a user wants to get precision to 71 bits, that is not possible here, so this will round to the nearest byte
+unsigned int getByteCount(unsigned int bits);//ensure this matches the chosen type for precision
+// make this live in the class or make the typedef live outside the class later
