@@ -1,14 +1,16 @@
  Reference for Arbitrary Precision mathematics
 ==============================================
 
+A library that implements large number arithmetic, arbitrary precision mathematics.
+
 Choice of library
 -----------------
 
-It is important to note that this library is designed for ease-of-use. Mission-critical
-applications should probably use a more established library such as GMP from the GNU
-foundation. However, I am also designing this library with readability in mind. Thus, it
-could be used in educational settings to teach what is possible using languages such as
-C++.
+This library was designed as a personal challenge. I wanted it to be relatively easy to use
+and be relatively easy to understand, and since other (well maintained) libraries exist, I
+chose to make my library focus on demonstrating how it is done rather than making the
+most optimal implementation possible. Mission-critical applications should probably use a
+more established library such as [GMP](https://gmplib.org/)from the GNU foundation.
 
 #### Which header?
 
@@ -42,11 +44,31 @@ this entirely using bytes to demonstrate how to create custom data. The trade-of
 that I may not get to use the CPU as efficiently as I would if I used a bunch of native
 floating point numbers.
 
+Basic data structure
+--------------------
+
+The entire library stores numbers as a dynamically allocated array of some native data type.
+At this time, I am using unsigned chars for my arrays since they are exactly one byte in
+size. Regardless of the datatype used internally, the basic structure of the data is more or
+less the same.
+
+Internally, the string of bits is stored as follows:  
+MSB (Most Significant Bit) <- bits <- LSB (Least Significant Bit)  
+
+The bits are stored like this (MSB on the left):  
+MSB side | ` char[n] <- char[n-1] <- ... <- char[1] <- char[0] ` | LSB side
+
+Any data type could be used in place of `unsigned char`, other data types (such as `unsigned
+int`) have their own advantages and disadvantages. I've chosen to use single byte types so
+that I can make the library construct the number to within a single byte of any given size.
+The native `unsigned int` type is probably better for performance as the majority of
+compilers and CPU designs are made to operate on integers larger than one single byte.
+
 Performance and stability considerations
 ----------------------------------------
 
 This library allows for user-defined precision, and the precision is defined at run-time.
-This means that dynamic memory usage is required for a library that can change precision
-without being recompiled. When comparing or doing math on variables, try to keep the 
-precision the same between them when possible. Get in the habit of calling the
-destructor function when you are finished with a given variable.
+Get in the habit of calling the destructor function when you are finished with a given
+variable. Using dynamic memory allows the library to change precision without being
+recompiled. When comparing or doing math on variables, try to keep the precision the same
+between them when possible.

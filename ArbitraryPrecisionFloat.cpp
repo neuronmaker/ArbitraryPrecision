@@ -18,9 +18,7 @@ APfloat::APfloat() {
 }
 
 APfloat::APfloat(precisionType givenPrecision) {
-    precision=givenPrecision;
-    unsigned int calculatedExponent;
-    //set exponent size as 25% of the precision size
+    unsigned int calculatedExponent=0.25*givenPrecision;//set exponent size as 25% of the precision size
     APfloat(givenPrecision, calculatedExponent);
 }
 
@@ -37,8 +35,8 @@ APfloat::APfloat(precisionType givenPrecision, precisionType givenExponentSize) 
 APfloat::~APfloat() {//default destructor
     delete[] exponent;//ensure deletion of exponent and fraction
     delete[] fraction;
-    exponent= nullptr;//set to null to avoid dangling pointers
-    fraction= nullptr;
+    exponent=nullptr;//set to null to avoid dangling pointers
+    fraction=nullptr;
 }
 
 APfloat APfloat::operator+ ( APfloat &f1) {
@@ -79,6 +77,26 @@ APfloat APfloat::operator/= ( APfloat &f1) {
 }
 
 bool APfloat::operator==(APfloat &f1) {
+    return false;
+}
+
+bool APfloat::operator!=(APfloat &f1) {
+    return false;
+}
+
+bool APfloat::operator<=(APfloat &f1) {
+    return false;
+}
+
+bool APfloat::operator>=(APfloat &f1) {
+    return false;
+}
+
+bool APfloat::operator>(APfloat &f1) {
+    return false;
+}
+
+bool APfloat::operator<(APfloat &f1) {
     return false;
 }
 
