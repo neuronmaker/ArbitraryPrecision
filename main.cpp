@@ -5,11 +5,17 @@
 //
 
 #include <iostream>
-#include "ArbitraryPrecisionFloat.h"
+#include "ArbitraryPrecisionInt.h"
+#include <string>
 
 using namespace std;
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+int main(){
+	string buffer;
+	unsigned char bytes[16];
+	APint bigint;
+	cout<<"Enter numbers (0-255): ";
+	getline(cin, buffer, '\n');
+	cout<<buffer<<endl;
+	return 0;
 }

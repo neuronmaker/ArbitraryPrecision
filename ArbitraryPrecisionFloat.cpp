@@ -1,5 +1,5 @@
 //
-// File: ArbitraryPrecisionFloat.h
+// File: ArbitraryPrecisionFloat.cpp
 // Project: Arbitrary Precision
 // Created by Dalton Herrewynen on Feb 6 2023.
 //
@@ -13,95 +13,99 @@
 
 #include "ArbitraryPrecisionFloat.h"
 
-APfloat::APfloat() {
-    APfloat(DEFAULT_FLOAT_PRECISION);//just shorthand for the main constructor with the default precision
+APfloat::APfloat(){
+	APfloat(DEFAULT_FLOAT_PRECISION);//just shorthand for the main constructor with the default precision
 }
 
-APfloat::APfloat(precisionType givenPrecision) {
-    unsigned int calculatedExponent=0.25*givenPrecision;//set exponent size as 25% of the precision size
-    APfloat(givenPrecision, calculatedExponent);
+APfloat::APfloat(precisionType givenPrecision){
+	unsigned int calculatedExponent=0.25*givenPrecision;//set exponent size as 25% of the precision size
+	APfloat(givenPrecision, calculatedExponent);
 }
 
-APfloat::APfloat(precisionType givenPrecision, precisionType givenExponentSize) {//specified sized are in bits, Must convert them to bytes first
-    precision=getByteCount(givenPrecision);//we want bytes and are given bits, fix that
-    exponentSize=getByteCount(givenExponentSize);
-    fraction=new unsigned char [precision];//ask for memory
-    exponent=new unsigned char [exponentSize];
-    infinity=false;//set edge cases to false
-    NaN=false;// Will set the value to 0.0, so it will be a real number
-    positiveSign=true;//initial value is +0.0
+APfloat::APfloat(precisionType givenPrecision,
+				 precisionType givenExponentSize){//specified sized are in bits, Must convert them to bytes first
+	precision=getByteCount(givenPrecision);//we want bytes and are given bits, fix that
+	exponentSize=getByteCount(givenExponentSize);
+	fraction=new unsigned char[precision];//ask for memory
+	exponent=new unsigned char[exponentSize];
+	infinity=false;//set edge cases to false
+	NaN=false;// Will set the value to 0.0, so it will be a real number
+	positiveSign=true;//initial value is +0.0
 }
 
-APfloat::~APfloat() {//default destructor
-    delete[] exponent;//ensure deletion of exponent and fraction
-    delete[] fraction;
-    exponent=nullptr;//set to null to avoid dangling pointers
-    fraction=nullptr;
+APfloat::~APfloat(){//default destructor
+	delete[] exponent;//ensure deletion of exponent and fraction
+	delete[] fraction;
+	exponent=nullptr;//set to null to avoid dangling pointers
+	fraction=nullptr;
 }
 
-APfloat APfloat::operator+ ( APfloat &f1) {
-    //add this->stuff to f1.stuff
-    return APfloat();
+APfloat APfloat::operator+(APfloat &f1){
+	//add this->stuff to f1.stuff
+	return APfloat();
 }
 
-APfloat APfloat::operator- ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator-(APfloat &f1){
+	return APfloat();
 }
 
-APfloat APfloat::operator* ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator*(APfloat &f1){
+	return APfloat();
 }
 
-APfloat APfloat::operator/ ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator/(APfloat &f1){
+	return APfloat();
 }
 
-APfloat APfloat::operator= ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator=(APfloat &f1){
+	return APfloat();
 }
 
-APfloat APfloat::operator+= ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator+=(APfloat &f1){
+	return APfloat();
 }
 
-APfloat APfloat::operator-= ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator-=(APfloat &f1){
+	return APfloat();
 }
 
-APfloat APfloat::operator*= ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator*=(APfloat &f1){
+	return APfloat();
 }
 
-APfloat APfloat::operator/= ( APfloat &f1) {
-    return APfloat();
+APfloat APfloat::operator/=(APfloat &f1){
+	return APfloat();
 }
 
-bool APfloat::operator==(APfloat &f1) {
-    return false;
+bool APfloat::operator==(APfloat &f1){
+	return false;
 }
 
-bool APfloat::operator!=(APfloat &f1) {
-    return false;
+bool APfloat::operator!=(APfloat &f1){
+	return false;
 }
 
-bool APfloat::operator<=(APfloat &f1) {
-    return false;
+bool APfloat::operator<=(APfloat &f1){
+	return false;
 }
 
-bool APfloat::operator>=(APfloat &f1) {
-    return false;
+bool APfloat::operator>=(APfloat &f1){
+	return false;
 }
 
-bool APfloat::operator>(APfloat &f1) {
-    return false;
+bool APfloat::operator>(APfloat &f1){
+	return false;
 }
 
-bool APfloat::operator<(APfloat &f1) {
-    return false;
+bool APfloat::operator<(APfloat &f1){
+	return false;
 }
 
-unsigned int getByteCount(unsigned int bits) {
-    //typically, there are 8 bits in a byte, I am using a #define so that I can support weird architectures that don't use 8bit bytes
-    if(bits%BITS_IN_BYTE==0) return (bits/BITS_IN_BYTE);//integer division truncates, for divisible by 8 values this is fine
-    else return (bits/BITS_IN_BYTE)+1;//complex way to say, add an extra byte if the number is between two byte counts, ceiling rounding.
+unsigned int getByteCount(unsigned int bits){
+	//typically, there are 8 bits in a byte, I am using a #define so that I can support weird architectures that don't use 8bit bytes
+	if(bits%BITS_IN_BYTE==0)
+		return (bits/BITS_IN_BYTE);//integer division truncates, for divisible by 8 values this is fine
+	else
+		return (bits/BITS_IN_BYTE)+
+			   1;//complex way to say, add an extra byte if the number is between two byte counts, ceiling rounding.
 }

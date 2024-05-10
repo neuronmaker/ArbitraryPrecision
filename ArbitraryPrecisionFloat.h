@@ -13,53 +13,65 @@
 #define ARBITRARYPRECISION_ARBITRARYPRECISIONFLOAT_H
 
 //making the default precision exactly double that of the usual double data type
-#define DEFAULT_FLOAT_PRECISION 128 // Note that this is in bits
+#define DEFAULT_FLOAT_PRECISION 128 //Note that this is in bits
 
-class APfloat {
-    typedef unsigned int precisionType;//for easy changing down the road
+/**
+ * Arbitrary precision floating point
+ * @author Dalton Herrewynen
+ * @copyright All rights reserved
+ * @version 0.1
+ */
+class APfloat{
+	typedef unsigned int precisionType;//for easy changing down the road
 public:
 
-    APfloat();//constructors
-    APfloat(precisionType givenPrecision);
-    APfloat(precisionType givenPrecision, precisionType givenExponentSize);
+	APfloat();//constructors
+	APfloat(precisionType givenPrecision);
 
-    ~APfloat();//destructor
+	APfloat(precisionType givenPrecision, precisionType givenExponentSize);
 
-    //to do
-    //create destructor
-    //Create enum for NaN, Infinity, etc.
-    //catch divide by 0
+	~APfloat();//destructor
 
-    APfloat operator+ (APfloat&);//basic operators for arithmetic
-    APfloat operator- (APfloat&);
-    APfloat operator* (APfloat&);
-    APfloat operator/ (APfloat&);
+	//todo create destructor, Create enum for NaN, Infinity, etc., catch divide by 0
 
-    APfloat operator= (APfloat&);//assignment
-    APfloat operator+= (APfloat&);
-    APfloat operator-= (APfloat&);
-    APfloat operator*= (APfloat&);
-    APfloat operator/= (APfloat&);
+	APfloat operator+(APfloat &);//basic operators for arithmetic
+	APfloat operator-(APfloat &);
 
-    //consider inlining most of these
-    bool operator== (APfloat&);//equality and logic
-    bool operator!= (APfloat&);//this one may be redundant as teh compiler may or may not generate this one for me
-    bool operator<= (APfloat&);
-    bool operator>= (APfloat&);
-    bool operator> (APfloat&);
-    bool operator< (APfloat&);
+	APfloat operator*(APfloat &);
 
-    //conversions to other data types (sometimes lossy)
+	APfloat operator/(APfloat &);
+
+	APfloat operator=(APfloat &);//assignment
+	APfloat operator+=(APfloat &);
+
+	APfloat operator-=(APfloat &);
+
+	APfloat operator*=(APfloat &);
+
+	APfloat operator/=(APfloat &);
+
+	//consider inlining most of these
+	bool operator==(APfloat &);//equality and logic
+	bool operator!=(APfloat &);//this one may be redundant as teh compiler may or may not generate this one for me
+	bool operator<=(APfloat &);
+
+	bool operator>=(APfloat &);
+
+	bool operator>(APfloat &);
+
+	bool operator<(APfloat &);
+
+	//conversions to other data types (sometimes lossy)
 
 private:
-    //Note that these are stored as bytes not bits
-    precisionType precision;//total precision
-    precisionType exponentSize;//size of exponent
+	//Note that these are stored as bytes not bits
+	precisionType precision;//total precision
+	precisionType exponentSize;//size of exponent
 
-    bool infinity, NaN;//special values go here
-    bool positiveSign;//true for positive, false for negative
-    unsigned char* fraction;//these pointers are where I store the dynamically allocated bytes to make this magic work
-    unsigned char* exponent;//I suspect that using integers might be faster, but I want to show how to do this using raw bytes
+	bool infinity, NaN;//special values go here
+	bool positiveSign;//true for positive, false for negative
+	unsigned char *fraction;//these pointers are where I store the dynamically allocated bytes to make this magic work
+	unsigned char *exponent;//I suspect that using integers might be faster, but I want to show how to do this using raw bytes
 
 };
 
