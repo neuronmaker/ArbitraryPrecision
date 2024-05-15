@@ -55,7 +55,7 @@ APint &APint::operator=(APint &givenInt){
 
 APint operator+(const APint &left, const APint &right){
 	if(left.sizeInBytes!=right.sizeInBytes){
-		//convert
+		//todo convert
 	}
 	APint result=APint(left.sizeInBytes);//create the result holder
 	APint::valueType carry=0;//holder for carry
@@ -91,23 +91,23 @@ void APint::zeroOut(){
  */
 std::string APint::dumpString(){
 	std::string buffer="";
-	for(precisionType i=0; i<sizeInBytes; ++i){
-		buffer+=this->value[i];
+	for(precisionType i=sizeInBytes; i>0; --i){//go backwards so that we print MSB on the left and LSB on the right
+		buffer+=this->value[(i-1)];
 	}
 	return buffer;
 }
 
 /**
- * Generates a printable string from the internal state
+ * Generates a printable string showing the internal 1's and 0's
  * @return Printable string
  */
 std::string APint::dumpBinString(){
 	std::string buffer="";
 	APint::valueType holder;
-	for(precisionType i=0; i<sizeInBytes; ++i){
-		holder=this->value[i];
-		for(unsigned int j=0; j<APInt_VAL_SIZE; ++j){//extract each bit
-			if(0!=(holder & (1<<j))){//figure out if this bit is a 1 or a 0
+	for(precisionType i=sizeInBytes; i>0; --i){//Go backwards since we read right to left and print left to right
+		holder=this->value[(i-1)];//offset by 1 since we are running from max to 1 instead of max-1 to 0
+		for(int j=APInt_VAL_SIZE-1; j>=0; --j){//extract each bit
+			if(0!=(holder & (1 << (j-1)))){//figure out if this bit is a 1 or a 0
 				buffer+='1';
 			}else{
 				buffer+='0';
