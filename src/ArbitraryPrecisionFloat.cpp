@@ -13,13 +13,10 @@
 
 #include "ArbitraryPrecisionFloat.h"
 
-APfloat::APfloat(){
-	APfloat(DEFAULT_FLOAT_PRECISION);//just shorthand for the main constructor with the default precision
+APfloat::APfloat() : APfloat(DEFAULT_FLOAT_PRECISION){//delegated constructor call
 }
 
-APfloat::APfloat(precisionType givenPrecision){
-	unsigned int calculatedExponent=0.25*givenPrecision;//set exponent size as 25% of the precision size
-	APfloat(givenPrecision, calculatedExponent);
+APfloat::APfloat(precisionType givenPrecision) : APfloat(givenPrecision, 0.25*givenPrecision){//delegated constructor call with bad floor rounding
 }
 
 APfloat::APfloat(precisionType givenPrecision,

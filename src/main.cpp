@@ -13,7 +13,7 @@ using namespace std;
 int main(int argNum, char* args[]){
 	string buffer;
 	unsigned char bytes[16];
-	APint bigint;
+	APint bigint=APint();
 	cout<<"Enter numbers (0-255): ";
 	getline(cin, buffer, '\n');
 	cout<<buffer<<endl;

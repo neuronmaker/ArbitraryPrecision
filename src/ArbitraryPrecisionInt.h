@@ -29,6 +29,7 @@
  * @version 0.1
  */
 class APint{
+public:
 	typedef unsigned int precisionType;//for easy changing down the road
 	typedef unsigned char valueType;//Store our signed integer value as an array of bytes (chars)
 private:
@@ -51,7 +52,6 @@ public:
 	APint &operator=(APint &);//handle assignment
 	//conversions
 	std::string dumpString();
-
 	std::string dumpBinString();
 
 	void loadVal(valueType hex[], precisionType len);
@@ -60,6 +60,7 @@ public:
 	//for testing and troubleshooting
 	void insertByte(valueType val,precisionType index);
 	valueType recallByte(precisionType index);
+	precisionType getSize();
 };
 
 #endif //ARBITRARYPRECISION_ARBITRARYPRECISIONINT_H

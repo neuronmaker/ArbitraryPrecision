@@ -23,11 +23,11 @@
  */
 class APfloat{
 	typedef unsigned int precisionType;//for easy changing down the road
+	typedef unsigned char fractionType, exponentType;
 public:
 
 	APfloat();//constructors
 	APfloat(precisionType givenPrecision);
-
 	APfloat(precisionType givenPrecision, precisionType givenExponentSize);
 
 	~APfloat();//destructor
@@ -70,8 +70,8 @@ private:
 
 	bool infinity, NaN;//special values go here
 	bool positiveSign;//true for positive, false for negative
-	unsigned char *fraction;//these pointers are where I store the dynamically allocated bytes to make this magic work
-	unsigned char *exponent;//I suspect that using integers might be faster, but I want to show how to do this using raw bytes
+	fractionType *fraction;//these pointers are where I store the dynamically allocated bytes to make this magic work
+	exponentType *exponent;//I suspect that using integers might be faster, but I want to show how to do this using raw bytes
 
 };
 

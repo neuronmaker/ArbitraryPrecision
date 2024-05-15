@@ -6,8 +6,7 @@
 
 #include "ArbitraryPrecisionInt.h"
 
-APint::APint(){
-	APint(DEFAULT_INT_SIZE);//set it to the default integer size
+APint::APint():APint(DEFAULT_INT_SIZE){//delegated constructor call
 }
 
 APint::APint(APint::precisionType newSize){//size is in bits, round up to next byte
@@ -117,13 +116,27 @@ std::string APint::dumpBinString(){
 	}
 	return buffer;
 }
+/** Returns the current size of the integer */
+APint::precisionType APint::getSize(){
+	return sizeInBytes;
+}
 
+/**
+ * Directly loads the values of an array into the integer
+ * @param newValue The array to load
+ * @param len      How many elements make up the array
+ */
 void APint::loadVal(APint::valueType newValue[], APint::precisionType len){
 	for(precisionType i=0; i<len && i<sizeInBytes; ++i){
 		this->value[i]=newValue[i];
 	}
 }
 
+/**
+ * Directly writes a single element into the integer structure
+ * @param val   The value to set
+ * @param index Which address to place this value
+ */
 void APint::insertByte(APint::valueType val, APint::precisionType index){
 	value[index]=val;
 }
