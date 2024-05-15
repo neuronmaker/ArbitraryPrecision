@@ -4,7 +4,7 @@ A library that implements large number arithmetic, arbitrary precision mathemati
 
 ## Choice of library
 
-This library was designed as a personal challenge. I wanted it to be relatively easy to use and be relatively easy to understand, and since other (well maintained) libraries exist, I chose to make my library focus on demonstrating how it is done rather than making the most optimal implementation possible. Mission-critical applications should probably use a more established library such as [GMP](https://gmplib.org/)from the GNU foundation.
+This library was designed as a personal challenge. I wanted it to be relatively easy to use and be relatively easy to understand, and since other (well maintained) libraries exist, I chose to make my library focus on demonstrating how it is done rather than making the most optimal implementation possible. Mission-critical applications should probably use a more established library such as [GMP](https://gmplib.org/) from the GNU foundation.
 
 #### Which header?
 
