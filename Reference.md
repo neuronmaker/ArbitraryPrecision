@@ -46,4 +46,4 @@ compilers and CPU designs are made to operate on integers larger than one single
 
 ## Performance and stability considerations
 
-This library allows for user-defined precision, and the precision is defined at run-time. Get in the habit of calling the destructor function when you are finished with a given variable. Using dynamic memory allows the library to change precision without being recompiled. When comparing or doing math on variables, try to keep the precision the same between them when possible.
+This library allows for user-defined precision, and the precision is defined at run-time. Get in the habit of calling the destructor function when you are finished with a given variable. Using dynamic memory allows the library to change precision without being recompiled. When comparing or doing math on two or more variables, when possible, try to keep both variables using the same precision.

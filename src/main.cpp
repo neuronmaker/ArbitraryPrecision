@@ -5,12 +5,12 @@
 //
 
 #include <iostream>
-#include "ArbitraryPrecisionInt.h"
 #include <string>
+#include "ArbitraryPrecisionInt.h"
 
 using namespace std;
 
-int main(){
+int main(int argNum, char* args[]){
 	string buffer;
 	unsigned char bytes[16];
 	APint bigint;

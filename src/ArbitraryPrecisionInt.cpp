@@ -103,8 +103,17 @@ std::string APint::dumpString(){
  */
 std::string APint::dumpBinString(){
 	std::string buffer="";
+	APint::valueType holder;
 	for(precisionType i=0; i<sizeInBytes; ++i){
-		buffer+=this->value[i];
+		holder=this->value[i];
+		for(unsigned int j=0; j<APInt_VAL_SIZE; ++j){//extract each bit
+			if(0!=(holder & (1<<j))){//figure out if this bit is a 1 or a 0
+				buffer+='1';
+			}else{
+				buffer+='0';
+			}
+		}
+		buffer+=' ';//space for readability
 	}
 	return buffer;
 }
