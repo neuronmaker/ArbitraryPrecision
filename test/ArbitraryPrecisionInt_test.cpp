@@ -38,9 +38,9 @@ int main(int argNum, char* args[]){
 int test_dumpBinString(bool print){
 	if(print) cout<<"Testing the APInt dumpBinString() function"<<endl;//print test name if not silenced
 	APint bigint=APint(16);//2 bytes
-	string got,expected="00010111 01010011";//arbitrary pattern that is easy to see if there are order errors
-	unsigned char bytes[2]={0b00010111,0b01010011};//make sure these patterns match the expected string
-	bigint.insertByte(bytes[0],1);//reversed order since they are stored opposite of print order... todo consider changing this or writing an interface
+	unsigned char bytes[2]={0b00010111,0b01010011};//arbitrary pattern that is easy to see if there are order errors
+	string got,expected=getBinString(bytes[0])+getBinString(bytes[1]);//match print order to the string
+	bigint.insertByte(bytes[0],1);//reverse the assignment order since the assignment and printing order are reversed
 	bigint.insertByte(bytes[1],0);
 	got=bigint.dumpBinString();
 	//bigint

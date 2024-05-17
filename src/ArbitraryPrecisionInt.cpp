@@ -106,7 +106,7 @@ std::string APint::dumpBinString(){
 	for(precisionType i=sizeInBytes; i>0; --i){//Go backwards since we read right to left and print left to right
 		holder=this->value[(i-1)];//offset by 1 since we are running from max to 1 instead of max-1 to 0
 		for(int j=APInt_VAL_SIZE-1; j>=0; --j){//extract each bit
-			if(0!=(holder & (1 << (j-1)))){//figure out if this bit is a 1 or a 0
+			if(0!=(holder & (1 << j))){//figure out if this bit is a 1 or a 0
 				buffer+='1';
 			}else{
 				buffer+='0';
