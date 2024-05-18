@@ -13,13 +13,13 @@
 
 #include "APfloat.h"
 
-APfloat::APFloat() :APfloat(DEFAULT_FLOAT_PRECISION){//delegated constructor call
+APfloat::APfloat() :APfloat(DEFAULT_FLOAT_PRECISION){//delegated constructor call
 }
 
-APfloat::APFloat(precisionType givenPrecision) :APfloat(givenPrecision, 0.25*givenPrecision){//delegated constructor call with bad floor rounding
+APfloat::APfloat(precisionType givenPrecision) :APfloat(givenPrecision, 0.25*givenPrecision){//delegated constructor call with bad floor rounding
 }
 
-APfloat::APFloat(precisionType givenPrecision,
+APfloat::APfloat(precisionType givenPrecision,
 				 precisionType givenExponentSize){//specified sized are in bits, Must convert them to bytes first
 	precision=getByteCount(givenPrecision);//we want bytes and are given bits, fix that
 	exponentSize=getByteCount(givenExponentSize);
@@ -30,7 +30,7 @@ APfloat::APFloat(precisionType givenPrecision,
 	positiveSign=true;//initial value is +0.0
 }
 
-APfloat::~APFloat(){//default destructor
+APfloat::~APfloat(){//default destructor
 	delete[] exponent;//ensure deletion of exponent and fraction
 	delete[] fraction;
 	exponent=nullptr;//set to null to avoid dangling pointers
