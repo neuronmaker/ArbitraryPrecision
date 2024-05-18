@@ -10,7 +10,9 @@
 
 using namespace std;
 //declarations
-int test_dumpBinString(bool print); int test_byteReadWrite(bool print);
+int test_dumpBinString(bool); int test_byteReadWrite(bool);
+int test_printNumber(bool); int test_parseString(bool);
+int test_addition(bool);
 
 void invalidTest(string testName){
 	cout<<"Invalid test name: "<<testName<<endl;
@@ -28,13 +30,40 @@ int main(int argNum, char* args[]){
 	int retVal=0;
 	for(int i=2; i<argNum && retVal==0; ++i){//loop over all arguments unless one or more tests fail
 		argument=args[i];
-		if(argument=="dumpBinString") retVal=test_dumpBinString(print);
+		if(argument=="dumpBinString") retVal=test_dumpBinString(print);//select the correct test to run by name
 		else if(argument=="byteReadWrite") retVal=test_byteReadWrite(print);
+		else if(argument=="printNumber") retVal=test_printNumber(print);
+		else if(argument=="printNumber") retVal=test_parseString(print);
 		else invalidTest(argument);
 	}
 	return retVal;
 }
 
+/**
+ * Tests printing the integer as a human-readable number
+ * @param print True causes verbose printing
+ * @return 0 upon success, anything else is a failure
+ */
+int test_printNumber(bool print){
+	if(print) cout<<"Testing the ability of the APInt to print a human-readable number"<<endl;
+	APint bigint=APint(16);//2 bytes
+	return 0;
+}
+/**
+ * Tests parsing a number from a string
+ * @param print True causes verbose printing
+ * @return 0 upon success, anything else is a failure
+ */
+int test_parseString(bool print){
+	if(print) cout<<"Testing the ability of the APInt to read a number from a string"<<endl;
+	APint bigint=APint(16);//2 bytes
+	return 0;
+}
+/**
+ * Test the ability to print the binary data from the integer structure as a string
+ * @param print True causes verbose printing
+ * @return 0 upon success, anything else is a failure
+ */
 int test_dumpBinString(bool print){
 	if(print) cout<<"Testing the APInt dumpBinString() function"<<endl;//print test name if not silenced
 	APint bigint=APint(16);//2 bytes
@@ -56,11 +85,15 @@ int test_dumpBinString(bool print){
 		return 1;//flag an error
 	}
 }
-
+/**
+ * Test the ability to read and write bytes directly into the integer structure
+ * @param print True causes verbose printing
+ * @return 0 upon success, anything else is a failure
+ */
 int test_byteReadWrite(bool print){
 	if(print) cout<<"Testing the APInt byte insertion and recall functions"<<endl;//print test name if not silenced
 	APint bigint=APint(64);//arbitrary size
-	unsigned char byte=0b11001001;//arbitrary pattern that is easy to check of errors
+	unsigned char byte=0b11001001;//arbitrary pattern that is easy to check for errors
 	for(APint::precisionType i=0; i<bigint.getSize(); ++i){//loop over all bytes of the bigint object
 		unsigned char got;
 		bigint.zeroOut();//blank out the object

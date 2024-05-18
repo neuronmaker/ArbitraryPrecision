@@ -8,7 +8,10 @@
 
 APint::APint():APint(DEFAULT_INT_SIZE){//delegated constructor call
 }
-
+/**
+ * Construct an integer with a given size
+ * @param newSize How many bits of precision
+ */
 APint::APint(APint::precisionType newSize){//size is in bits, round up to next byte
 	if(newSize%APInt_VAL_SIZE==0) newSize=newSize/APInt_VAL_SIZE;//if divisible (usually by 8 bits per byte)
 	else newSize=newSize/APInt_VAL_SIZE+1;//add another byte if between two byte sizes... bad ceiling rounding
@@ -39,8 +42,7 @@ APint &APint::operator=(APint &givenInt){
 			this->value[i]=givenInt.value[i];
 		}
 	}else{//Otherwise we have the larger size and precision, use ours
-		bool negative=APIntSignBit & givenInt.value[givenInt.sizeInBytes-
-													1];//like doing 0b10000000 but easier to change, extracts the left most bit in left most byte
+		bool negative=APIntSignBit & givenInt.value[givenInt.sizeInBytes-1];//like doing 0b10000000 but easier to change, extracts the left most bit in left most byte
 		for(precisionType i=0; i<givenInt.sizeInBytes; ++i){//copy all bits from provided APint
 			this->value[i]=givenInt.value[i];
 		}
@@ -116,7 +118,10 @@ std::string APint::dumpBinString(){
 	}
 	return buffer;
 }
-/** Returns the current size of the integer */
+/**
+ * Returns the current size of the integer
+ * @return Current number of bytes the integer holds
+ */
 APint::precisionType APint::getSize(){
 	return sizeInBytes;
 }
@@ -140,7 +145,11 @@ void APint::loadVal(APint::valueType newValue[], APint::precisionType len){
 void APint::insertByte(APint::valueType val, APint::precisionType index){
 	value[index]=val;
 }
-
+/**
+ * Directly reads a single element from the integer structure
+ * @param index Which address to place this value
+ * @return THe byte at that address
+ */
 APint::valueType APint::recallByte(APint::precisionType index){
 	return value[index];
 }
