@@ -14,10 +14,10 @@ include_directories(${APP_ROOT})
 
 set(
 		APLIB_FILES
-		${APP_ROOT}/ArbitraryPrecisionInt.h
-		${APP_ROOT}/ArbitraryPrecisionInt.cpp
-		${APP_ROOT}/ArbitraryPrecisionFloat.h
-		${APP_ROOT}/ArbitraryPrecisionFloat.cpp
+		${APP_ROOT}/APInt.h
+		${APP_ROOT}/APInt.cpp
+		${APP_ROOT}/APFloat.h
+		${APP_ROOT}/APFloat.cpp
 
 )
 
@@ -35,14 +35,14 @@ set(
 add_executable(ArbitraryPrecision ${SOURCE_FILES} ${APLIB_FILES})
 
 #Unit testing
-add_executable(ArbitraryPrecisionInt_test ${TEST_ROOT}/ArbitraryPrecisionInt_test.cpp ${APLIB_FILES}  ${TEST_FILES})
-add_test(Test_Integer_BinString, "${CMAKE_SOURCE_DIR}/bin/ArbitraryPrecisionInt_test" "-p" "dumpBinString")
-add_test(Test_Integer_constructors, "${CMAKE_SOURCE_DIR}/bin/ArbitraryPrecisionInt_test" "-p" "byteReadWrite")
-add_test(Test_Integer_constructors, "${CMAKE_SOURCE_DIR}/bin/ArbitraryPrecisionInt_test" "-p" "printNumber")
-add_test(Test_Integer_constructors, "${CMAKE_SOURCE_DIR}/bin/ArbitraryPrecisionInt_test" "-p" "parseString")
+add_executable(APInt_test ${TEST_ROOT}/APInt_test.cpp ${APLIB_FILES}  ${TEST_FILES})
+add_test(Test_Integer_BinString, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "-p" "dumpBinString")
+add_test(Test_Integer_constructors, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "-p" "byteReadWrite")
+add_test(Test_Integer_constructors, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "-p" "printNumber")
+add_test(Test_Integer_constructors, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "-p" "parseString")
 
-add_executable(ArbitraryPrecisionFloat_test ${TEST_ROOT}/ArbitraryPrecisionFloat_test.cpp ${APLIB_FILES} ${TEST_FILES})
-#add_test(Test_Float_0, "${CMAKE_SOURCE_DIR}/bin/ArbitraryPrecisionFloat_test" "-p" "0")
+add_executable(APFloat_test ${TEST_ROOT}/APFloat_test.cpp ${APLIB_FILES} ${TEST_FILES})
+#add_test(Test_Float_0, "${CMAKE_SOURCE_DIR}/bin/APFloat_test" "-p" "0")
 
 add_executable(ArbitraryPrecision_main_test ${TEST_ROOT}/main_test.cpp ${APLIB_FILES} ${TEST_FILES})
 #add_test(Test_main_0, "${CMAKE_SOURCE_DIR}/bin/ArbitraryPrecision_main_test" "-p" "0")

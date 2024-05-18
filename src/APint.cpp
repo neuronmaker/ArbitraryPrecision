@@ -4,7 +4,7 @@
 // Created by Dalton Herrewynen on Feb 6 2023.
 //
 
-#include "ArbitraryPrecisionInt.h"
+#include "APint.h"
 
 APint::APint():APint(DEFAULT_INT_SIZE){//delegated constructor call
 }
@@ -18,9 +18,7 @@ APint::APint(APint::precisionType newSize){//size is in bits, round up to next b
 	overflow=false;//no overflows on a new instance
 	sizeInBytes=newSize;//store the total size
 	value=new valueType[sizeInBytes];//ask for memory
-	for(precisionType i=0; i<sizeInBytes; ++i){//0 out the bits
-		value[i]=0;
-	}
+	zeroOut();//0 out the bits for newly created integers
 }
 
 APint::~APint(){

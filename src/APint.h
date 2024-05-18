@@ -9,8 +9,8 @@
 //makes it easier to set to systems that assign other than 8 bits per byte
 #endif
 
-#ifndef ARBITRARYPRECISION_ARBITRARYPRECISIONINT_H
-#define ARBITRARYPRECISION_ARBITRARYPRECISIONINT_H
+#ifndef ARBITRARYPRECISION_APINT_H
+#define ARBITRARYPRECISION_APINT_H
 
 #include <string>
 
@@ -41,7 +41,6 @@ private:
 public:
 	//constructors
 	APint();
-
 	APint(precisionType newSize);
 
 	~APint();//default destructor
@@ -63,4 +62,4 @@ public:
 	precisionType getSize();
 };
 
-#endif //ARBITRARYPRECISION_ARBITRARYPRECISIONINT_H
+#endif ARBITRARYPRECISION_APINT_H

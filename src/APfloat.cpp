@@ -11,15 +11,15 @@
 // Computers do this with binary numbers and I will make this work with a large string of bits
 // I once thought to do this using a series of integer types, but I want to show how it's done using only binary data (chars).
 
-#include "ArbitraryPrecisionFloat.h"
+#include "APfloat.h"
 
-APfloat::APfloat() : APfloat(DEFAULT_FLOAT_PRECISION){//delegated constructor call
+APfloat::APFloat() :APfloat(DEFAULT_FLOAT_PRECISION){//delegated constructor call
 }
 
-APfloat::APfloat(precisionType givenPrecision) : APfloat(givenPrecision, 0.25*givenPrecision){//delegated constructor call with bad floor rounding
+APfloat::APFloat(precisionType givenPrecision) :APfloat(givenPrecision, 0.25*givenPrecision){//delegated constructor call with bad floor rounding
 }
 
-APfloat::APfloat(precisionType givenPrecision,
+APfloat::APFloat(precisionType givenPrecision,
 				 precisionType givenExponentSize){//specified sized are in bits, Must convert them to bytes first
 	precision=getByteCount(givenPrecision);//we want bytes and are given bits, fix that
 	exponentSize=getByteCount(givenExponentSize);
@@ -30,7 +30,7 @@ APfloat::APfloat(precisionType givenPrecision,
 	positiveSign=true;//initial value is +0.0
 }
 
-APfloat::~APfloat(){//default destructor
+APfloat::~APFloat(){//default destructor
 	delete[] exponent;//ensure deletion of exponent and fraction
 	delete[] fraction;
 	exponent=nullptr;//set to null to avoid dangling pointers

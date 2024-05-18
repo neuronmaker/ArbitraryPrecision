@@ -4,7 +4,7 @@
 // Created by Dalton Herrewynen on May 15, 2024
 //
 #include "test_utils.h"
-#include "ArbitraryPrecisionInt.h"
+#include "APint.h"
 #include <string>
 #include <iostream>
 

@@ -8,8 +8,8 @@ This library was designed as a personal challenge. I wanted it to be relatively 
 
 #### Which header?
 
-- For integer math - use `ArbitraryPrecisionInt.h`
-- For floating point math - use `ArbitraryPrecisionFloat.h`
+- For integer math - use `APInt.h`
+- For floating point math - use `APfloat.h`
 
 ## Size, precision, and memory usage
 

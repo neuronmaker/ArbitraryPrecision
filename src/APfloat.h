@@ -9,8 +9,8 @@
 //makes it easier to set to systems that assign other than 8bits per byte
 #endif
 
-#ifndef ARBITRARYPRECISION_ARBITRARYPRECISIONFLOAT_H
-#define ARBITRARYPRECISION_ARBITRARYPRECISIONFLOAT_H
+#ifndef ARBITRARYPRECISION_APFLOAT_H
+#define ARBITRARYPRECISION_APFLOAT_H
 
 //making the default precision exactly double that of the usual double data type
 #define DEFAULT_FLOAT_PRECISION 128 //Note that this is in bits
@@ -75,7 +75,7 @@ private:
 
 };
 
-#endif //ARBITRARYPRECISION_ARBITRARYPRECISIONFLOAT_H
+#endif ARBITRARYPRECISION_APFLOAT_H
 
 //to make things easier for users, this function divides bits by 8 to get number of bytes for this library
 //if a user wants to get precision to 71 bits, that is not possible here, so this will round to the nearest byte

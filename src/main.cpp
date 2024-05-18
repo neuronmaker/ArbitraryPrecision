@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <string>
-#include "ArbitraryPrecisionInt.h"
+#include "APint.h"
 
 using namespace std;
 
