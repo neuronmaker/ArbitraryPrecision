@@ -17,15 +17,14 @@
 //how many bits should the default size be?
 #define DEFAULT_INT_SIZE 128
 //constants relating to what datatype is used to store the value
-#define APInt_VAL_SIZE 8
-#define APIntValMax 255
+#define APint_VAL_SIZE 8
+#define APintValMax 255
 //Change below if using a data type with more bits
-#define APIntSignBit 0b1000000
+#define APintSignBit 0b1000000
 
 /**
- * Arbitrary precision integer
+ * Arbitrary precision integer (signed)
  * @author Dalton Herrewynen
- * @copyright All rights reserved
  * @version 0.1
  */
 class APint{
@@ -62,4 +61,4 @@ public:
 	precisionType getSize();
 };
 
-#endif ARBITRARYPRECISION_APINT_H
+#endif

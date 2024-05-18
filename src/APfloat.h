@@ -18,7 +18,6 @@
 /**
  * Arbitrary precision floating point
  * @author Dalton Herrewynen
- * @copyright All rights reserved
  * @version 0.1
  */
 class APfloat{
@@ -75,7 +74,7 @@ private:
 
 };
 
-#endif ARBITRARYPRECISION_APFLOAT_H
+#endif
 
 //to make things easier for users, this function divides bits by 8 to get number of bytes for this library
 //if a user wants to get precision to 71 bits, that is not possible here, so this will round to the nearest byte
