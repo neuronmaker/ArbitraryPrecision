@@ -2,8 +2,8 @@
 
 This is a C++ library which allows for relatively easy implementation of high
 precision mathematics. This is not designed to be a replacement for other
-libraries. It is designed to be easy to use and to present me with a challenge
-to refresh my memory about how C++ works.
+libraries. It was built as a personal challenge, and to see how one of these
+libraries can be built.
 
 ## What files do
 
@@ -23,9 +23,3 @@ Refer to `Reference.md` file
 3. Creation and initialization
 4. Setting precision - tradeoff between precision and size/complexity
 5. Assignment operator that will copy the value and precision to the new variable
-
-## Why?
-
-I was trying to build a large number calculator when I was first learning to program.
-I want to build a library aimed at people who are where I was back then, something that
-is easy for a beginner to use.

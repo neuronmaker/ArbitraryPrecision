@@ -49,5 +49,5 @@ They are made of 3 main parts:
 2. Fraction or Mantissa - Stores the actual value
 3. Exponent - Tells the system how large or small that value is
 
-Just as the number 123.456 can be represented as 1.23456 * 10^2, a computer does something
-similar in floating point numbers.
+Just as the number 123.456 can be represented as 1.23456 * 10^2, a computer does
+something similar for floating point numbers.

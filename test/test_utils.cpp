@@ -29,13 +29,43 @@ std::string formatBinString(std::string src){
 
 /**
  * Returns a printable string showing the 0's and 1's of the provided data type
- * @param byte The unsigned char to check
+ * @param value The value to convert into a binary string
  * @return a printable string of 0's and 1's
  */
-std::string getBinString(unsigned char byte){
+std::string getBinString(unsigned char value){
 	std::string result;
 	for(int i=7; i>=0; --i){//print in reverse since we represent bits right to left and print them left to right
-		if(0!=(byte & (1 << i)))//figure out if this bit is a 1 or a 0
+		if(0!=(value & (1 << i)))//figure out if this bit is a 1 or a 0
+			result+='1';
+		else
+			result+='0';
+	}
+	return result;
+}
+/**
+ * Returns a printable string showing the 0's and 1's of the provided data type
+ * @param value The value to convert into a binary string
+ * @return a printable string of 0's and 1's
+ */
+std::string getBinString(int value){
+	std::string result;
+	for(int i=31; i>=0; --i){//32 bits in an int, so from 31 through 0 inclusive
+		if(0!=(value & (1 << i)))//figure out if this bit is a 1 or a 0
+			result+='1';
+		else
+			result+='0';
+	}
+	return result;
+}
+/**
+ * Returns a printable string showing the 0's and 1's of the provided data type
+ * @param value The value to convert into a binary string
+ * @return a printable string of 0's and 1's
+ */
+std::string getBinString(long value){
+	std::string result;
+	for(int i=63; i>=0; --i){//64 bits in a long, so from 63 through 0 inclusive
+		if(0!=(value & (1L << i)))//figure out if this bit is a 1 or a 0
 			result+='1';
 		else
 			result+='0';

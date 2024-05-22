@@ -4,11 +4,11 @@ A library that implements large number arithmetic, arbitrary precision mathemati
 
 ## Choice of library
 
-This library was designed as a personal challenge. I wanted it to be relatively easy to use and be relatively easy to understand, and since other (well maintained) libraries exist, I chose to make my library focus on demonstrating how it is done rather than making the most optimal implementation possible. Mission-critical applications should probably use a more established library such as [GMP](https://gmplib.org/) from the GNU foundation.
+This library was designed as a personal challenge. Mission-critical applications should use a more established library such as [GMP](https://gmplib.org/) from the GNU foundation. However, I post this library online assuming that it might prove useful to someone, even if as a mere teaching tool.
 
 #### Which header?
 
-- For integer math - use `APInt.h`
+- For integer math - use `APint.h`
 - For floating point math - use `APfloat.h`
 
 ## Size, precision, and memory usage
@@ -38,11 +38,16 @@ MSB (Most Significant Bit) <- bits <- LSB (Least Significant Bit)
 The bits are stored like this (MSB on the left):  
 MSB side | ` char[n] <- char[n-1] <- ... <- char[1] <- char[0] ` | LSB side
 
+The reason I store the data in this direction is because so that the increasing index
+correlates with an increasing left shift as we move from least to most significant bits.
+
 Any data type could be used in place of `unsigned char`, other data types (such as `unsigned
 int`) have their own advantages and disadvantages. I've chosen to use single byte types so
 that I can make the library construct the number to within a single byte of any given size.
-The native `unsigned int` type is probably better for performance as the majority of
-compilers and CPU designs are made to operate on integers larger than one single byte.
+The 32-bit (signed and unsigned `int`) and the 64-bit data types (signed and unsigned
+`long`) are almost certainly more efficient on modern systems. Since more established
+libraries already exist, I can make arbitrary decisions like this one, in order to make the
+challenge more interesting.
 
 ## Performance and stability considerations
 

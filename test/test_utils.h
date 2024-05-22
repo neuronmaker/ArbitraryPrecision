@@ -6,9 +6,11 @@
 
 #ifndef ARBITRARYPRECISION_TEST_UTILS_H
 #define ARBITRARYPRECISION_TEST_UTILS_H
-
 #include <string>
+
 std::string formatBinString(std::string);
 std::string getBinString(unsigned char);
+std::string getBinString(int);
+std::string getBinString(long);
 
-#endif //ARBITRARYPRECISION_TEST_UTILS_H
+#endif
