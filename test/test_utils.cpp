@@ -65,10 +65,31 @@ std::string getBinString(int value){
 std::string getBinString(long value){
 	std::string result;
 	for(int i=63; i>=0; --i){//64 bits in a long, so from 63 through 0 inclusive
-		if(0!=(value & (1L << i)))//figure out if this bit is a 1 or a 0
+		if(0!=(value & (1L<<i)))//figure out if this bit is a 1 or a 0
 			result+='1';
 		else
 			result+='0';
 	}
 	return result;
+}
+/**
+ * Return a given byte from a long, does not handle errors or out-of-bounds
+ * @param value The value to extract a byte from
+ * @param index Which byte (0 is right-most byte)
+ * @return The byte at the index
+ */
+unsigned char getByte(long value, int index){
+	//shift the value rightwards 8 bits per byte index, then mask off the right 8 bits and return just those
+	//effectively, this grabs the byte at an index, but we do this by moving the value around
+	return ((value >> (index*8)) & 0b11111111);
+}
+
+/**
+ * Return a given byte from an int, does not handle errors or out-of-bounds
+ * @param value The value to extract a byte from
+ * @param index Which byte (0 is right-most byte)
+ * @return The byte at the index
+ */
+unsigned char getByte(int value, int index){
+	return getByte((long) value,index);
 }

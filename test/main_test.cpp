@@ -14,15 +14,14 @@ void invalidTest(string testName){
 }
 
 int main(int argNum, char* args[]){
-	if(argNum<=2){//print error message if there are less than 2 additional arguments to the command line
-		cout << "You need to supply at least 2 arguments" << endl;
-		cout << "Argument 1: \"-s\" silences printed output, anything else allows printed output" << endl;
-		cout << "Next arguments are the values of each test to run." << endl;
+	if(argNum<=1){//print error message if there are no arguments on the command line
+		cout<<"You need to supply at least 1 argument"<<endl;
+		cout<<"Arguments are the names of the tests you wish to run"<<endl;
 		return 0;
 	}
-	string argument=args[1];
-	bool print=(argument!="-s");//if first argument is -s, silence printed outputs
-	for(int i=0; i<argNum; ++i){
+	string argument;
+	int retVal=0;
+	for(int i=1; i<argNum && retVal==0; ++i){
 		invalidTest(argument);
 	}
 	return 0;

@@ -9,8 +9,11 @@
 #include <string>
 
 std::string formatBinString(std::string);
-std::string getBinString(unsigned char);
-std::string getBinString(int);
-std::string getBinString(long);
+std::string getBinString(unsigned char value);
+std::string getBinString(int value);
+std::string getBinString(long value);
+
+unsigned char getByte(long value,int index);
+unsigned char getByte(int value,int index);
 
 #endif
