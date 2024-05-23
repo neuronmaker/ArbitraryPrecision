@@ -39,7 +39,7 @@ add_executable(APint_test ${TEST_ROOT}/APint_test.cpp ${APLIB_FILES}  ${TEST_FIL
 add_test(APint_Test_BinString, "${CMAKE_SOURCE_DIR}/bin/APint_test" "dumpBinString")
 add_test(APint_Test_ByteReadWrite, "${CMAKE_SOURCE_DIR}/bin/APint_test" "byteReadWrite")
 add_test(APint_Test_Load, "${CMAKE_SOURCE_DIR}/bin/APint_test" "load")
-add_test(APint_Test_Load, "${CMAKE_SOURCE_DIR}/bin/APint_test" "assignment")
+add_test(APint_Test_Assign, "${CMAKE_SOURCE_DIR}/bin/APint_test" "assignment")
 add_test(APint_Test_Addition, "${CMAKE_SOURCE_DIR}/bin/APint_test" "addition")
 add_test(APint_Test_Subtraction, "${CMAKE_SOURCE_DIR}/bin/APint_test" "subtraction")
 #add_test(APint_Test_PrintNumber, "${CMAKE_SOURCE_DIR}/bin/APint_test" "printNumber")
