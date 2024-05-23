@@ -16,11 +16,14 @@
 
 //how many bits should the default size be?
 #define DEFAULT_INT_SIZE 128
-//constants relating to what datatype is used to store the value
-#define APint_VAL_SIZE 8
+//Constants for the data type used to store the internal structure
+#define APint_VAL_SIZE 8 //currently using bytes (unsigned chars)
 #define APintValMax 255
-//Change below if using a data type with more bits
-#define APintSignBit 0b1000000
+#define APintSignBit 0b10000000
+#define APintValMask 0b11111111 //8 1's are used for a byte sized data type
+//how bytes does each C++ datatype take to store
+#define IntegerBytes 4
+#define LongBytes 8
 
 /**
  * Arbitrary precision integer (signed)
@@ -43,22 +46,24 @@ public:
 	APint(precisionType newSize);
 
 	~APint();//default destructor
+	bool isOverflow();
+	precisionType getSize();
 	//operators
 	friend APint operator+(const APint &, const APint &);//make these non-members
 	friend APint operator-(const APint &, const APint &);
 
 	APint &operator=(APint &);//handle assignment
 	//conversions
-	std::string dumpString();
-	std::string dumpBinString();
-
 	void loadVal(valueType hex[], precisionType len);
+	bool load(int);//load functions to import C++ native datatypes
+	bool load(long);
 
 	void zeroOut();
+	std::string to_string();
 	//for testing and troubleshooting
-	void insertByte(valueType val,precisionType index);
-	valueType recallByte(precisionType index);
-	precisionType getSize();
+	std::string dumpBinString();
+	void insertByte(unsigned char val,precisionType index);
+	unsigned char recallByte(precisionType index);
 };
 
 #endif

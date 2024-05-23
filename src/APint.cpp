@@ -79,21 +79,20 @@ APint operator-(const APint &left, const APint &right){
 
 /** Makes the entire internal structure full of zeros */
 void APint::zeroOut(){
-	for(precisionType i=0; i<this->sizeInBytes; ++i){
+	for(precisionType i=0; i<this->sizeInBytes; ++i)
 		this->value[i]=0;
-	}
+	overflow=false;//a blank integer cannot be overflown
 }
 
 /**
- * Dumps a printable string showing the internal state
- * @return Human readable string from internal state
+ * Prints the human-readable number which is represented by the internal state
+ * @return a number in a string, or "OVERFLOW" if there was an overflow or underflow
  */
-std::string APint::dumpString(){
-	std::string buffer="";
-	for(precisionType i=sizeInBytes; i>0; --i){//go backwards so that we print MSB on the left and LSB on the right
-		buffer+=this->value[(i-1)];
-	}
-	return buffer;
+std::string APint::to_string(){
+	if(overflow) return "OVERFLOW";
+	std::string number;
+	//todo finish this when I have division working
+	return number;
 }
 
 /**
@@ -116,12 +115,21 @@ std::string APint::dumpBinString(){
 	}
 	return buffer;
 }
+
 /**
  * Returns the current size of the integer
  * @return Current number of bytes the integer holds
  */
 APint::precisionType APint::getSize(){
 	return sizeInBytes;
+}
+
+/**
+ * Returns whether the integer has overflown
+ * @return True of overflow has occurred.
+ */
+bool APint::isOverflow(){
+	return overflow;
 }
 
 /**
@@ -136,18 +144,62 @@ void APint::loadVal(APint::valueType newValue[], APint::precisionType len){
 }
 
 /**
- * Directly writes a single element into the integer structure
+ * Directly writes a single byte into the integer structure
  * @param val   The value to set
  * @param index Which address to place this value
  */
-void APint::insertByte(APint::valueType val, APint::precisionType index){
+void APint::insertByte(unsigned char val, APint::precisionType index){
 	value[index]=val;//todo check if the index in in range and prevent segmentation faults
 }
+
 /**
- * Directly reads a single element from the integer structure
+ * Directly reads a single byte from the integer structure
  * @param index Which address to place this value
  * @return THe byte at that address
  */
-APint::valueType APint::recallByte(APint::precisionType index){
+unsigned char APint::recallByte(APint::precisionType index){
 	return value[index];
+}
+
+/**
+ * Loads a C++ integer into the integer structure
+ * @param val the C++ integer to load in
+ * @return true if the value was set successfully, false if something went wrong
+ */
+bool APint::load(int val){
+	if(sizeInBytes<IntegerBytes) return false;//return an error if the structure is too small for an int
+	overflow=false;//successfully loaded integers cannot be overflown
+	precisionType i;
+	for(i=0; i<IntegerBytes; ++i){//copy each byte, one at a time using bit masks and shifting
+		value[i]=APintValMask & (val>>(i*APint_VAL_SIZE));//shift the int by the predefined number of bits per data element
+	}
+	for(; i<sizeInBytes; ++i)//for the remaining bytes
+		value[i]=0;//zero out the rest of the integer
+
+	if(val<0){//if less than 0, toggle our sign bit, val is already in 2's compliment (usually)
+		value[IntegerBytes-1]&=0b01111111;//toggle off the sign bit of the last byte since we move that bit to our sign bit
+		value[sizeInBytes-1]|=APintSignBit;//toggle the sign bit on the final byte of this integer structure
+	}
+	return true;
+}
+/**
+ * Loads a C++ long into the integer structure
+ * @param val the C++ long to load in
+ * @return true if the value was set successfully, false if something went wrong
+ */
+bool APint::load(long val){
+	if(sizeInBytes<LongBytes) return false;//return an error if the structure is too small for a long
+	overflow=false;//successfully loaded integers cannot be overflown
+	precisionType i;
+	for(i=0; i<LongBytes; ++i){//copy each byte, one at a time using bit masks and shifting
+		value[i]=APintValMask & (val>>(i*APint_VAL_SIZE));//shift the int by the predefined number of bits per data element
+	}
+	for(; i<sizeInBytes; ++i)//for the remaining bytes
+		value[i]=0;//zero out the rest of the integer
+
+	if(val<0){//if less than 0, toggle our sign bit, val is already in 2's compliment (usually)
+		value[LongBytes-1]&=0b01111111;//toggle off the sign bit of the last byte since we move that bit to our sign bit
+		value[sizeInBytes-1]|=APintSignBit;//toggle the sign bit on the final byte of this integer structure
+	}
+	return true;
 }

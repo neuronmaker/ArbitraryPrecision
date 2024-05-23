@@ -10,9 +10,10 @@
 
 using namespace std;
 //declarations
-int test_addition(bool);
 int test_dumpBinString(); int test_byteReadWrite();
 int test_printNumber(); int test_parseString();
+int test_addition(); int test_subtraction();
+int test_load();
 
 void invalidTest(string testName){
 	cout<<"Invalid test name: "<<testName<<endl;
@@ -30,11 +31,103 @@ int main(int argNum, char* args[]){
 		argument=args[i];
 		if(argument=="dumpBinString") retVal=test_dumpBinString();//select the correct test to run by name
 		else if(argument=="byteReadWrite") retVal=test_byteReadWrite();
+		else if(argument=="load") retVal=test_load();
+		else if(argument=="addition") retVal=test_addition();
+		else if(argument=="subtraction") retVal=test_subtraction();
 		else if(argument=="printNumber") retVal=test_printNumber();
 		else if(argument=="parseNumber") retVal=test_parseString();
 		else invalidTest(argument);
 	}
 	return retVal;
+}
+
+/**
+ * Test the ability to set the value of an APint object
+ * @return 0 upon success, anything else is a failure
+ */
+int test_load(){
+	cout<<"Test loading values from a native C++ ints and longs"<<endl;
+	APint bigint=APint(128);//be larger than a long
+	int testInt;
+	long testLong;
+	unsigned char expected,got;
+	for(int test=0; test<256; ++test){//going to do 256 test patterns
+		testInt=test;//copy the test byte to the int and long
+		testLong=test;
+		testInt=(testInt<<(8*(sizeof(int)-1)))|0b00011000;//copy an arbitrary position finding pattern to the rightmost byte
+		testLong=(testLong<<(8*(sizeof(long)-1)))|0b00011000;//move the pattern to the leftmost byte
+
+		bigint.load(testInt);//test loading ints
+		for(int i=0; i<sizeof(int); ++i){//check each byte
+			got=bigint.recallByte(i);//checking one byte at a time
+			expected=getByte(testInt,i);//extract the i'th byte
+			if(testInt<0 && i==sizeof(int)-1){//if we are at the final byte of a negative int
+				expected&=0b01111111;//remove the sign bit since that will be at the far end of the APint
+				//check the last bit of the last byte of the APint
+				if(0==(bigint.recallByte(bigint.getSize()-1) & 0b10000000)){
+					cout<<"Sign bit was not set"<<endl;
+					cout<<"Source int structure: "<<formatBinString(getBinString(testInt))<<endl;
+					cout<<"Internal APint structure: "<<formatBinString(bigint.dumpBinString())<<endl;
+					return 1;//signal a failed test if the sign bit is not set
+				}
+			}
+			if(expected!=got){//compare the previously masked byte with the contents of the integer structure
+				cout<<"Failure at byte "<<i<<", \nExpected: "<<getBinString(expected)<<endl;
+				cout<<"Got:      "<< getBinString(got)<<endl;
+				cout<<"Source int structure: "<<formatBinString(getBinString(testInt))<<endl;
+				cout<<"Internal APint structure: "<<formatBinString(bigint.dumpBinString())<<endl;
+				return 1;//if the bytes are not the same, then the test fails
+			}
+		}
+
+		bigint.load(testLong);//test loading longs
+		for(int i=0; i<sizeof(long); ++i){//check each byte
+			got=bigint.recallByte(i);//checking one byte at a time
+			expected=getByte(testLong,i);//extract the i'th byte
+			if(testLong<0 && i==sizeof(long)-1){//if we are at the final byte of a negative long
+				expected&=0b01111111;//remove the sign bit since that will be at the far end of the APint
+				//check the last bit of the last byte of the APint
+				if(0==(bigint.recallByte(bigint.getSize()-1) & 0b10000000)){
+					cout<<"Sign bit was not set"<<endl;
+					cout<<"Source long structure: "<<formatBinString(getBinString(testLong))<<endl;
+					cout<<"Internal APint structure: "<<formatBinString(bigint.dumpBinString())<<endl;
+					return 1;//signal a failed test if the sign bit is not set
+				}
+			}
+			if(expected!=got){//compare the previously masked byte with the contents of the integer structure
+				cout<<"Failure at byte "<<i<<", \nExpected: "<<getBinString(expected)<<endl;
+				cout<<"Got:      "<< getBinString(got)<<endl;
+				cout<<"Source long structure: "<<formatBinString(getBinString(testLong))<<endl;
+				cout<<"Internal APint structure: "<<formatBinString(bigint.dumpBinString())<<endl;
+				return 1;//if the bytes are not the same, then the test fails
+			}
+		}
+	}
+	return 0;//if we get to the end, the test has passed
+}
+
+/**
+ * Test for correct addition
+ * @return 0 upon success, anything else is a failure
+ */
+int test_addition(){
+	cout<<"Testing for correct addition operations"<<endl;
+	APint left=APint(16), right=APint(16);//test on a small (16 bit) scale
+	APint result;//holder for the results
+	//todo test basic addition
+	//todo test addition that overflows from one data element to the next
+	return 0;
+}
+
+/**
+ * Test for correct subtraction
+ * @return 0 upon success, anything else is a failure
+ */
+int test_subtraction(){
+	cout<<"Testing for correct subtraction"<<endl;
+	APint left=APint(16), right=APint(16);//test on a small (16 bit) scale
+	APint result;//holder for the results
+	return 0;
 }
 
 /**
