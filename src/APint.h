@@ -46,17 +46,16 @@ public:
 	APint(precisionType newSize);
 
 	~APint();//default destructor
-	bool isOverflow();
-	precisionType getSize();
+	bool isOverflow() const;
+	precisionType getSize() const;
 	//operators
 	friend APint operator+(const APint &, const APint &);//make these non-members
 	friend APint operator-(const APint &, const APint &);
 
 	APint &operator=(APint &);//handle assignment
 	//conversions
-	void loadVal(valueType hex[], precisionType len);
-	bool load(int);//load functions to import C++ native datatypes
-	bool load(long);
+	void loadVal(valueType newValue[], precisionType len);
+	bool load(long val);//load functions to import C++ native datatypes
 
 	void zeroOut();
 	std::string to_string();

@@ -35,16 +35,17 @@ set(
 add_executable(ArbitraryPrecision ${SOURCE_FILES} ${APLIB_FILES})
 
 #Unit testing
-add_executable(APInt_test ${TEST_ROOT}/APint_test.cpp ${APLIB_FILES}  ${TEST_FILES})
-add_test(APint_Test_BinString, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "dumpBinString")
-add_test(APint_Test_ByteReadWrite, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "byteReadWrite")
-add_test(APint_Test_Load, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "load")
-#add_test(APint_Test_Addition, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "addition")
-#add_test(APint_Test_Subtraction, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "subtraction")
-#add_test(APint_Test_PrintNumber, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "printNumber")
-#add_test(APint_Test_ParseString, "${CMAKE_SOURCE_DIR}/bin/APInt_test" "parseString")
+add_executable(APint_test ${TEST_ROOT}/APint_test.cpp ${APLIB_FILES}  ${TEST_FILES})
+add_test(APint_Test_BinString, "${CMAKE_SOURCE_DIR}/bin/APint_test" "dumpBinString")
+add_test(APint_Test_ByteReadWrite, "${CMAKE_SOURCE_DIR}/bin/APint_test" "byteReadWrite")
+add_test(APint_Test_Load, "${CMAKE_SOURCE_DIR}/bin/APint_test" "load")
+add_test(APint_Test_Load, "${CMAKE_SOURCE_DIR}/bin/APint_test" "assignment")
+add_test(APint_Test_Addition, "${CMAKE_SOURCE_DIR}/bin/APint_test" "addition")
+add_test(APint_Test_Subtraction, "${CMAKE_SOURCE_DIR}/bin/APint_test" "subtraction")
+#add_test(APint_Test_PrintNumber, "${CMAKE_SOURCE_DIR}/bin/APint_test" "printNumber")
+#add_test(APint_Test_ParseString, "${CMAKE_SOURCE_DIR}/bin/APint_test" "parseString")
 
-add_executable(APFloat_test ${TEST_ROOT}/APfloat_test.cpp ${APLIB_FILES} ${TEST_FILES})
+#add_executable(APFloat_test ${TEST_ROOT}/APfloat_test.cpp ${APLIB_FILES} ${TEST_FILES})
 #add_test(Test_Float_0, "${CMAKE_SOURCE_DIR}/bin/APFloat_test" "0")
 
 add_executable(ArbitraryPrecision_main_test ${TEST_ROOT}/main_test.cpp ${APLIB_FILES} ${TEST_FILES})

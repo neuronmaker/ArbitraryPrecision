@@ -31,8 +31,8 @@ APint &APint::operator=(APint &givenInt){
 		for(precisionType i=0; i<this->sizeInBytes; ++i){//copy one chunk at a time
 			this->value[i]=givenInt.value[i];
 		}
-	}else if(givenInt.sizeInBytes>
-			 this->sizeInBytes){//if the new integer is larger, then set our precision to match it
+	//if the new integer is larger, then set our precision to match it
+	}else if(givenInt.sizeInBytes>this->sizeInBytes){
 		this->sizeInBytes=givenInt.sizeInBytes;//set to the largest of the sizes
 		delete[] this->value;//free memory up
 		this->value=new unsigned char[this->sizeInBytes];//get the new chunk of memory
@@ -59,8 +59,8 @@ APint operator+(const APint &left, const APint &right){
 	APint result=APint(left.sizeInBytes);//create the result holder
 	APint::valueType carry=0;//holder for carry
 	for(APint::precisionType i=0; i<left.sizeInBytes; ++i){//special case for the last value which holds sign bit
-		if(APintValMax-(left.value[i]+carry)>
-		   right.value[i]){//if max value is lower than the total value, but without writing the max value directly
+		//if max value is lower than the total value, but without writing the max value directly
+		if(APintValMax-(left.value[i]+carry)>right.value[i]){
 			//Overflow has undefined behavior, so add total value subtract max value, carry the 1, but split the max value so that we never write a value bigger than the max value
 			result.value[i]=(left.value[i]-APintValMax)+(right.value[i]-1)+carry;
 			carry=1;//carry the 1
@@ -120,7 +120,7 @@ std::string APint::dumpBinString(){
  * Returns the current size of the integer
  * @return Current number of bytes the integer holds
  */
-APint::precisionType APint::getSize(){
+APint::precisionType APint::getSize() const{
 	return sizeInBytes;
 }
 
@@ -128,7 +128,7 @@ APint::precisionType APint::getSize(){
  * Returns whether the integer has overflown
  * @return True of overflow has occurred.
  */
-bool APint::isOverflow(){
+bool APint::isOverflow() const{
 	return overflow;
 }
 
@@ -155,33 +155,12 @@ void APint::insertByte(unsigned char val, APint::precisionType index){
 /**
  * Directly reads a single byte from the integer structure
  * @param index Which address to place this value
- * @return THe byte at that address
+ * @return The byte at that address
  */
 unsigned char APint::recallByte(APint::precisionType index){
 	return value[index];
 }
 
-/**
- * Loads a C++ integer into the integer structure
- * @param val the C++ integer to load in
- * @return true if the value was set successfully, false if something went wrong
- */
-bool APint::load(int val){
-	if(sizeInBytes<IntegerBytes) return false;//return an error if the structure is too small for an int
-	overflow=false;//successfully loaded integers cannot be overflown
-	precisionType i;
-	for(i=0; i<IntegerBytes; ++i){//copy each byte, one at a time using bit masks and shifting
-		value[i]=APintValMask & (val>>(i*APint_VAL_SIZE));//shift the int by the predefined number of bits per data element
-	}
-	for(; i<sizeInBytes; ++i)//for the remaining bytes
-		value[i]=0;//zero out the rest of the integer
-
-	if(val<0){//if less than 0, toggle our sign bit, val is already in 2's compliment (usually)
-		value[IntegerBytes-1]&=0b01111111;//toggle off the sign bit of the last byte since we move that bit to our sign bit
-		value[sizeInBytes-1]|=APintSignBit;//toggle the sign bit on the final byte of this integer structure
-	}
-	return true;
-}
 /**
  * Loads a C++ long into the integer structure
  * @param val the C++ long to load in
